@@ -29,3 +29,22 @@ Homestead.json
 .env.production
 .phpactor.json
 auth.json
+# Environment files
+.env.*
+!.env.example
+
+# Laravel generated files
+/backend/bootstrap/cache/*.php
+/backend/storage/framework/
+/backend/storage/logs/
+/backend/storage/*.key
+
+# Frontend build output
+/frontend/dist/
+/frontend/.vite/
+
+# IDE and operating system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
