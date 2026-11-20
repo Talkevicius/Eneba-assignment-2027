@@ -40,6 +40,8 @@ Examples: Steam, PlayStation, Xbox, Nintendo.
 
 Examples: Global, Europe, North America.
 
+Regions are referenced by offers and are used when browsing, filtering and displaying product offers.
+
 ### products
 - id (PK)
 - category_id (FK)
@@ -135,6 +137,8 @@ For the MVP, key codes are seeded demo data and should not be real commercial ke
 
 - A category has many products.
 - A product belongs to one category.
+- A region has many offers.
+- An offer belongs to one region.
 - A product has many offers.
 - A seller has many offers.
 - An offer belongs to one product, seller, platform and region.

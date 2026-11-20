@@ -51,6 +51,8 @@ Business logic is separated into dedicated services, while controllers handle HT
 
 The homepage contains independently managed sections. Each section has its own API endpoint and dedicated backend service, but all services operate within the same Laravel application and use the shared PostgreSQL database.
 
+The promotional banner section reads from the `banners` table through `BannerService`.
+
 The frontend communicates with the backend exclusively through REST API endpoints. It does not access the database directly.
 
 
@@ -106,12 +108,13 @@ Each section receives its content from a dedicated backend API endpoint. Product
 - Products
 - Categories
 - Platforms
+- Regions
 - Sellers
 - Offers
 - DigitalKeys
 - Orders
 - OrderItems
-- HomepageBanners
+- Banners
 
 The detailed relationships and fields are documented in `database-schema.md`.
 
