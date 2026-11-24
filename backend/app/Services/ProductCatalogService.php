@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductCatalogService
 {
@@ -16,7 +17,19 @@ class ProductCatalogService
         $matchingOffers = fn (Builder $offers): Builder => $this->applyOfferFilters($offers, $filters);
 
         $products = Product::query()
-            ->with('category:id,name,slug')
+            ->with([
+                'category:id,name,slug',
+                'offers' => function (HasMany $offers) use ($filters): void {
+                    $this->applyOfferFilters($offers->getQuery(), $filters)
+                        ->with([
+                            'seller:id,name,rating',
+                            'platform:id,name,slug',
+                            'region:id,name,code',
+                        ])
+                        ->orderBy('offers.price')
+                        ->orderBy('offers.id');
+                },
+            ])
             ->whereHas('offers', $matchingOffers)
             ->withMin(['offers as starting_price' => $matchingOffers], 'price')
             ->when(isset($filters['search']), fn (Builder $query) =>
@@ -40,7 +53,7 @@ class ProductCatalogService
         return Product::query()
             ->with([
                 'category:id,name,slug',
-                'offers' => fn (Builder $offers) => $offers
+                'offers' => fn (HasMany $offers) => $offers
                     ->where('is_active', true)
                     ->with([
                         'seller:id,name,rating',

@@ -1,0 +1,129 @@
+.checkout-page {
+  padding-top: var(--spacing-8);
+  padding-bottom: var(--spacing-12);
+}
+
+.checkout-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-5);
+  margin-bottom: var(--spacing-6);
+}
+
+.checkout-heading h1 { margin-bottom: var(--spacing-2); }
+.checkout-heading p { margin: 0; color: var(--color-text-secondary); }
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  align-items: start;
+  gap: var(--spacing-6);
+}
+
+.checkout-items { display: grid; gap: var(--spacing-4); min-width: 0; }
+
+.checkout-item {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--spacing-5);
+  padding: var(--spacing-4);
+}
+
+.checkout-item-image {
+  width: 104px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--color-deep);
+}
+
+.checkout-item-details { min-width: 0; }
+.checkout-item-details h2 { margin-bottom: var(--spacing-2); font-size: var(--font-size-lg); }
+.checkout-item-details h2 a { color: var(--color-text); }
+.checkout-item-details h2 a:hover { color: var(--color-accent); }
+.checkout-item-details p { margin: 0 0 var(--spacing-1); color: var(--color-text-secondary); font-size: var(--font-size-sm); }
+.checkout-item-details .checkout-item-subtotal { margin-top: var(--spacing-2); color: var(--color-accent); font-weight: var(--font-weight-bold); }
+.checkout-item-warning { border-color: var(--color-warning); }
+.checkout-item-warning h2 { color: var(--color-warning); font-size: var(--font-size-base); }
+.checkout-item-warning p { margin: var(--spacing-1) 0 0; color: var(--color-text-secondary); }
+
+.checkout-summary {
+  position: sticky;
+  top: var(--spacing-5);
+  padding: var(--spacing-5);
+}
+
+.checkout-summary h2 { margin-bottom: var(--spacing-5); font-size: var(--font-size-xl); }
+.checkout-summary > p { color: var(--color-text-secondary); }
+
+.checkout-total {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--spacing-3);
+  padding-block: var(--spacing-3);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.checkout-total strong { color: var(--color-text); }
+.checkout-total strong:last-child { color: var(--color-accent); }
+
+.checkout-submit { width: 100%; margin-top: var(--spacing-4); }
+.checkout-payment-note { margin: var(--spacing-3) 0 0; color: var(--color-text-muted) !important; font-size: var(--font-size-xs); }
+
+.checkout-warning,
+.checkout-error {
+  margin-bottom: var(--spacing-4);
+  padding: var(--spacing-4);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-dark);
+  color: var(--color-warning);
+}
+
+.checkout-error { border-color: var(--color-error); color: var(--color-text-secondary); }
+.checkout-error p { margin: 0 0 var(--spacing-3); color: inherit; }
+.checkout-error a { color: var(--color-accent); text-decoration: underline; }
+.checkout-error .button { margin-top: var(--spacing-2); }
+
+.checkout-confirmation {
+  max-width: 860px;
+  margin: var(--spacing-8) auto;
+  padding: var(--spacing-8);
+}
+
+.checkout-confirmation > p { margin-bottom: var(--spacing-2); }
+.checkout-confirmation h2 { margin-top: var(--spacing-8); font-size: var(--font-size-xl); }
+
+.checkout-delivered-keys {
+  display: grid;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
+}
+
+.checkout-delivered-keys li {
+  display: grid;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-dark);
+}
+
+.checkout-delivered-keys code { overflow-wrap: anywhere; color: var(--color-accent); }
+
+@media (max-width: 900px) {
+  .checkout-layout { grid-template-columns: minmax(0, 1fr); }
+  .checkout-summary { position: static; }
+}
+
+@media (max-width: 620px) {
+  .checkout-page { padding-top: var(--spacing-5); padding-bottom: var(--spacing-8); }
+  .checkout-heading { align-items: flex-start; flex-direction: column; }
+  .checkout-item { grid-template-columns: 76px minmax(0, 1fr); gap: var(--spacing-3); padding: var(--spacing-3); }
+  .checkout-item-image { width: 76px; }
+  .checkout-confirmation { padding: var(--spacing-4); }
+}

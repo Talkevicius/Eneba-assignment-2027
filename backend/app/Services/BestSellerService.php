@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 class BestSellerService
@@ -23,7 +24,18 @@ class BestSellerService
             ->joinSub($sales, 'product_sales', 'product_sales.product_id', '=', 'products.id')
             ->select('products.*')
             ->selectRaw('product_sales.sales_count AS sales_count')
-            ->with('category:id,name,slug')
+            ->with([
+                'category:id,name,slug',
+                'offers' => fn (HasMany $offers) => $offers
+                    ->where('is_active', true)
+                    ->with([
+                        'seller:id,name,rating',
+                        'platform:id,name,slug',
+                        'region:id,name,code',
+                    ])
+                    ->orderBy('offers.price')
+                    ->orderBy('offers.id'),
+            ])
             ->orderByDesc('sales_count')
             ->orderBy('products.title')
             ->orderBy('products.id')

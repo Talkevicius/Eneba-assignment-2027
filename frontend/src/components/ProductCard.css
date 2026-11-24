@@ -1,0 +1,58 @@
+.product-card-visual {
+  position: relative;
+}
+
+.product-card-image-link {
+  display: block;
+}
+
+.product-card-image-link:focus-visible,
+.product-card-title a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.product-card-actions {
+  position: absolute;
+  right: var(--spacing-3);
+  bottom: var(--spacing-3);
+  left: var(--spacing-3);
+  display: grid;
+  gap: var(--spacing-2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(var(--spacing-2));
+  transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+}
+
+.product-card:hover .product-card-actions,
+.product-card:focus-within .product-card-actions {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.product-card-actions .button {
+  width: 100%;
+  justify-content: center;
+  padding: var(--spacing-2) var(--spacing-3);
+  text-align: center;
+}
+
+.product-card-no-offers {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .product-card-actions {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card-actions { transition: none; }
+}

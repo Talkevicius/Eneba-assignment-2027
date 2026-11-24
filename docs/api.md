@@ -132,6 +132,8 @@ Only products with active offers matching the offer filters are listed. Price fi
 
 The catalog resource currently reports `starting_price` with `currency: "EUR"`; it does not derive a catalog currency from offer records.
 
+Each catalog product also includes an `offers` array containing its active offers that match the supplied `platform`, `region`, `min_price`, and `max_price` filters. The offer filter is the same one used to determine whether a product is listed and to calculate `starting_price`. Offers are ordered by price ascending, then offer ID. Each offer includes its seller, platform, region, current price, optional original price, and currency.
+
 Success: `200 OK`, with Laravel's paginated resource structure (`data`, `links`, and `meta`). Each product contains:
 
 ```json
@@ -146,7 +148,18 @@ Success: `200 OK`, with Laravel's paginated resource structure (`data`, `links`,
   "release_date": "2020-09-17",
   "category": { "id": 1, "name": "Action", "slug": "action" },
   "starting_price": "12.99",
-  "currency": "EUR"
+  "currency": "EUR",
+  "offers": [
+    {
+      "id": 501,
+      "seller": { "id": 3, "name": "Pixel Harbor", "rating": "4.92" },
+      "platform": { "id": 1, "name": "Steam", "slug": "steam" },
+      "region": { "id": 1, "name": "Global", "code": "GLOBAL" },
+      "price": "12.99",
+      "original_price": "27.99",
+      "currency": "EUR"
+    }
+  ]
 }
 ```
 
@@ -218,7 +231,7 @@ Success: `200 OK`.
 
 ### Best sellers
 
-`GET /api/home/best-sellers` — public. Returns up to eight products ranked by the count of their order items in orders whose `payment_status` is `successful`. Each order item counts as one unit sold. Products with no successful sales are omitted. Ties are ordered by title, then product ID.
+`GET /api/home/best-sellers` — public. Returns up to eight products ranked by the count of their order items in orders whose `payment_status` is `successful`. Each order item counts as one unit sold. Products with no successful sales are omitted. Ties are ordered by title, then product ID. Each product includes all its active offers, ordered by price ascending and then offer ID, with seller, platform, region, current price, optional original price, and currency.
 
 Success: `200 OK`. Items use the product resource with its category and a `sales_count` field:
 
@@ -235,7 +248,18 @@ Success: `200 OK`. Items use the product resource with its category and a `sales
       "publisher": "Supergiant Games",
       "release_date": "2020-09-17",
       "category": { "id": 1, "name": "Action", "slug": "action" },
-      "sales_count": 18
+      "sales_count": 18,
+      "offers": [
+        {
+          "id": 501,
+          "seller": { "id": 3, "name": "Pixel Harbor", "rating": "4.92" },
+          "platform": { "id": 1, "name": "Steam", "slug": "steam" },
+          "region": { "id": 1, "name": "Global", "code": "GLOBAL" },
+          "price": "12.99",
+          "original_price": "27.99",
+          "currency": "EUR"
+        }
+      ]
     }
   ]
 }
@@ -243,9 +267,9 @@ Success: `200 OK`. Items use the product resource with its category and a `sales
 
 ### Deals
 
-`GET /api/home/deals` — public. Returns up to eight products that have an active offer with `original_price` greater than `price`. Each product includes only its cheapest qualifying offer; equal prices use the lowest offer ID. Products are ordered by title, then product ID. No currency conversion is performed; current demo offers use EUR.
+`GET /api/home/deals` — public. Returns up to eight products that have at least one active offer with `original_price` greater than `price`. Each qualifying product includes all of its active offers, ordered by price ascending and then offer ID; the included offers are not limited to discounted offers. Products are ordered by title, then product ID. No currency conversion is performed; current demo offers use EUR.
 
-Success: `200 OK`. Each item uses the product resource and contains one offer in `offers`, with seller, platform, region, price, original price, and currency in the same structure as product details.
+Success: `200 OK`. Each item uses the product resource and contains an `offers` array with seller, platform, region, price, original price, and currency in the same structure as product details.
 
 ## Checkout
 
