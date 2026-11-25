@@ -1,6 +1,6 @@
 # Eneba Marketplace MVP
 
-Live Demo:
+Live Demo: https://eneba-marketplace-frontend.onrender.com/
 
 An Eneba-inspired digital game marketplace built as a full-stack development assignment. Users can browse games, compare offers from different sellers, manage a shopping cart, create an account, complete simulated purchases, receive digital keys, and view their order history.
 
