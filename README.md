@@ -185,8 +185,8 @@ See [docs/api.md](docs/api.md) for available endpoints, authentication requireme
 
 The planned deployment architecture uses:
 
-- **Frontend:** Vercel.
-- **Backend:** Render.
+- **Frontend:** Render static site.
+- **Backend:** Render web service(Docker).
 - **Database:** Supabase PostgreSQL.
 
 Deployment configuration and public application URLs will be added after deployment.
